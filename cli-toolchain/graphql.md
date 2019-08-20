@@ -1468,23 +1468,6 @@ exports.handler = async (event) => {
 };
 ```
 
-You can connect this function to your AppSync API deployed via Amplify using this schema:
-
-```
-type Query {
-    posts: [Post] @function(name: "GraphQLResolverFunction")
-}
-type Post {
-    id: ID!
-    title: String!
-    comments: [Comment] @function(name: "GraphQLResolverFunction")
-}
-type Comment {
-    postId: ID!
-    content: String
-}
-```
-
 This simple lambda function shows how you can write your own custom logic using a language of your choosing. Try enhancing the example with your own data and logic.
 
 > When deploying the function, make sure your function has access to the auth resource. You can run the `amplify update function` command for the CLI to automatically supply an environment variable named `AUTH_<RESOURCE_NAME>_USERPOOLID` to the function and associate corresponding CRUD policies to the execution role of the function.
@@ -1494,8 +1477,8 @@ After deploying our function, we can connect it to AppSync by defining some type
 
 ```
 type Query {
-  me: User @function(name: "ResolverFunction")
-  echo(msg: String): String @function(name: "ResolverFunction")
+  me: User @function(name: "GraphQLResolverFunction")
+  echo(msg: String): String @function(name: "GraphQLResolverFunction")
 }
 # These types derived from https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CognitoIdentityServiceProvider.html#adminGetUser-property
 type User {
